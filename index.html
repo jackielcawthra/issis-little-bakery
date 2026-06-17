@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issi's Little Bakery 🧁</title>
+  <meta name="description" content="Hemlagade bakverk bakade med kärlek av Issi. Beställ via Swish!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <script src="data.js"></script>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --rose:      #C25672;
+      --rose-lt:   #F9EEF2;
+      --rose-dk:   #9E3F58;
+      --yellow:    #FFF3B0;
+      --yellow-md: #F0D040;
+      --yellow-dk: #B89800;
+      --white:     #FFFFFF;
+      --off:       #FAF8F5;
+      --border:    #EDE8E4;
+      --text:      #1A1010;
+      --text-md:   #6B5757;
+      --text-lt:   #A09090;
+      --radius:    16px;
+      --shadow-sm: 0 2px 14px rgba(0,0,0,.05);
+      --shadow-md: 0 6px 28px rgba(0,0,0,.08);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,.11);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: 21px; color: var(--rose);
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+    .nav-links { display: flex; gap: 2px; flex-wrap: wrap; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 13px; font-weight: 700;
+      color: var(--text-md); letter-spacing: 0.3px;
+      padding: 7px 14px; border-radius: 20px;
+      transition: background .18s, color .18s;
+    }
+    .nav-links a:hover { background: var(--yellow); color: var(--text); }
+
+    /* ── Hero ── */
+    #hero {
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,243,176,.55) 0%, #fff 65%);
+      padding: 96px 24px 80px;
+      text-align: center;
+    }
+    .hero-emoji { font-size: 68px; display: block; margin-bottom: 16px; line-height: 1; }
+    #hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(44px, 8.5vw, 86px);
+      color: var(--rose);
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+    .hero-tagline {
+      font-size: clamp(15px, 2.5vw, 19px);
+      font-weight: 600; color: var(--text-md);
+      margin-top: 14px; margin-bottom: 36px;
+      letter-spacing: 0.5px;
+    }
+    .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-block;
+      padding: 13px 30px; border-radius: 40px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900; font-size: 15px;
+      letter-spacing: 0.4px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform .15s, box-shadow .15s, background .15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-primary { background: var(--rose); color: white; }
+    .btn-primary:hover { background: var(--rose-dk); }
+    .btn-secondary { background: white; color: var(--rose); border: 1.5px solid var(--rose); }
+
+    /* ── Weekly Special banner ── */
+    #special {
+      background: var(--yellow);
+      border-top: 1px solid var(--yellow-md);
+      border-bottom: 1px solid var(--yellow-md);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 16px; font-weight: 700; color: var(--text);
+    }
+    #special span { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--rose); }
+
+    /* ── Sections ── */
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 4.5vw, 40px);
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      text-align: center; font-size: 15px; color: var(--text-lt);
+      margin-bottom: 36px;
+    }
+
+    /* ── About ── */
+    #about { background: var(--off); }
+    .about-card {
+      display: flex; gap: 36px; align-items: center;
+      background: var(--white);
+      border-radius: var(--radius); padding: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .about-avatar {
+      width: 140px; height: 140px; min-width: 140px;
+      background: var(--yellow);
+      border-radius: 50%;
+      border: 3px solid var(--yellow-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      overflow: hidden; position: relative;
+    }
+    .about-avatar img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .about-avatar .avatar-placeholder { position: relative; z-index: 1; }
+    .about-text { flex: 1; min-width: 200px; }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 700;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .about-text p { font-size: 16px; color: var(--text-md); }
+    .photo-hint { font-size: 12px; color: var(--text-lt); margin-top: 10px; font-style: italic; }
+
+    /* ── Menu ── */
+    #menu { background: var(--white); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 16px;
+    }
+    .menu-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 16px; text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: transform .18s, box-shadow .18s, background .18s, border-color .18s;
+    }
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      background: #FFFDE8;
+      border-color: var(--yellow-md);
+    }
+    .menu-emoji { font-size: 38px; display: block; margin-bottom: 10px; }
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .menu-desc { font-size: 12px; color: var(--text-lt); margin-bottom: 14px; min-height: 16px; }
+    .menu-price {
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px; color: var(--rose);
+      background: var(--rose-lt);
+      border-radius: 20px; padding: 3px 16px;
+      display: inline-block;
+    }
+
+    /* ── Schedule ── */
+    #schedule { background: var(--off); }
+    .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 600px) { .schedule-grid { grid-template-columns: 1fr; } }
+    .schedule-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 32px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .schedule-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--text); margin-bottom: 22px;
+    }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { font-weight: 700; color: var(--text); }
+    .hours-row .time { color: var(--text-lt); }
+    .hours-row.open .time { color: #2E7D32; font-weight: 700; }
+    .popup-item {
+      background: var(--yellow);
+      border: 1px solid var(--yellow-md);
+      border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 12px;
+    }
+    .popup-item:last-child { margin-bottom: 0; }
+    .popup-date { font-family: 'Fredoka One', cursive; font-size: 16px; color: var(--rose); }
+    .popup-location { font-weight: 700; font-size: 13px; color: var(--text); margin: 3px 0 2px; }
+    .popup-info { font-size: 13px; color: var(--text-md); }
+    .no-popups { font-size: 14px; color: var(--text-lt); font-style: italic; }
+
+    /* ── Contact ── */
+    #contact { background: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .contact-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 32px 24px; text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-icon { font-size: 36px; margin-bottom: 14px; }
+    .contact-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .contact-value { font-size: 15px; font-weight: 600; color: var(--text-md); }
+    .contact-value a { color: var(--rose); text-decoration: none; }
+    .swish-highlight {
+      background: var(--yellow);
+      border-color: var(--yellow-md);
+    }
+    .swish-number {
+      font-family: 'Fredoka One', cursive;
+      font-size: 26px; color: var(--text); letter-spacing: 1px;
+    }
+    .swish-hint { font-size: 12px; color: var(--text-lt); margin-top: 4px; font-style: italic; }
+    .qr-placeholder {
+      width: 110px; height: 110px;
+      border: 2px dashed var(--yellow-md);
+      border-radius: 10px;
+      margin: 12px auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--text-lt); text-align: center; padding: 8px;
+    }
+    .qr-placeholder img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+
+    /* ── Allergen ── */
+    #allergen {
+      background: var(--off);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+    }
+    #allergen p {
+      max-width: 700px; margin: 0 auto;
+      font-size: 14px; color: var(--text-md); font-weight: 600;
+    }
+    #allergen strong { color: var(--text); }
+
+    /* ── Gallery ── */
+    #gallery { background: var(--white); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .gallery-slot {
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--off);
+      border: 1.5px dashed var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 6px;
+      font-size: 12px; color: var(--text-lt); text-align: center; padding: 12px;
+    }
+    .gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-slot .slot-icon { font-size: 32px; }
+    .gallery-add-note {
+      text-align: center; font-size: 12px; color: var(--text-lt);
+      font-style: italic; margin-top: 14px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #1A1010;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 13px;
+    }
+    footer strong {
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      display: block; margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+    footer .footer-rose { color: var(--rose); }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      nav { flex-direction: column; gap: 8px; padding: 12px 16px; }
+      .about-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">🧁 Issi's Little Bakery</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Meny</a></li>
+    <li><a href="#schedule">Tider</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+    <li><a href="#gallery">Bilder</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <span class="hero-emoji">🧁</span>
+  <h1>Issi's Little Bakery</h1>
+  <p class="hero-tagline">Stora smaker, bakade med kärlek 💕</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn btn-primary">Se menyn</a>
+    <a href="#contact" class="btn btn-secondary">Beställ nu</a>
+  </div>
+</section>
+
+<!-- WEEKLY SPECIAL (rendered by JS if active) -->
+<div id="special" style="display:none"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <h2 class="section-title">Om Issi</h2>
+    <p class="section-subtitle">Möt bagerskan 👧</p>
+    <div class="about-card">
+      <div class="about-avatar" id="about-avatar">
+        <!-- Replace with: <img src="issi.jpg" alt="Issi"> -->
+        <span class="avatar-placeholder">👧</span>
+      </div>
+      <div class="about-text">
+        <h2>Hej, jag är Issi!</h2>
+        <p id="about-text"></p>
+        <p class="photo-hint">Tips: Lägg en bild på Issi här — spara den som <code>issi.jpg</code> i samma mapp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-inner">
+    <h2 class="section-title">Vår meny</h2>
+    <p class="section-subtitle">Allt bakat från grunden 🍽️</p>
+    <div class="menu-grid" id="menu-grid"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="section-inner">
+    <h2 class="section-title">Tider & Evenemang</h2>
+    <p class="section-subtitle">När hittar du oss? 📅</p>
+    <div class="schedule-grid">
+
+      <div class="schedule-card">
+        <h3>🕐 Öppettider</h3>
+        <div id="hours-list"></div>
+      </div>
+
+      <div class="schedule-card">
+        <h3>📍 Pop-up & Evenemang</h3>
+        <div id="popups-list"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <h2 class="section-title">Kontakta oss</h2>
+    <p class="section-subtitle">Beställ eller hör av dig 💬</p>
+    <div class="contact-grid" id="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div class="contact-label">Adress</div>
+        <div class="contact-value" id="contact-address"></div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div class="contact-label">Telefon</div>
+        <div class="contact-value" id="contact-phone"></div>
+      </div>
+
+      <div class="contact-card swish-highlight">
+        <div class="contact-icon">💛</div>
+        <div class="contact-label">Swish</div>
+        <div class="qr-placeholder" id="swish-qr">
+          <!-- Lägg till QR-bild: <img src="swish-qr.png" alt="Swish QR"> -->
+          Lägg till Swish QR-kod här (spara som swish-qr.png)
+        </div>
+        <div class="swish-number" id="contact-swish"></div>
+        <div class="swish-hint">Betala direkt med Swish!</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ALLERGEN -->
+<section id="allergen">
+  <div class="section-inner">
+    <p>⚠️ <strong>Allergier:</strong> <span id="allergen-text"></span></p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <h2 class="section-title">Galleriet</h2>
+    <p class="section-subtitle">Issis skapelser 📸</p>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Photo slots — replace with real images by editing this HTML -->
+      <!-- Example: <div class="gallery-slot"><img src="cake1.jpg" alt="Chokladkaka"></div> -->
+    </div>
+    <p class="gallery-add-note">Lägg till bilder: spara dem i samma mapp och lägg till dem i HTML-filen som visas ovan.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>🧁 Issi's Little Bakery</strong>
+  <span id="footer-contact"></span>
+  <br><br>
+  <small>Gjord med <span class="footer-rose">♥</span> av Issi</small>
+</footer>
+
+<script>
+  // ── Render everything from data.js ──
+
+  // Weekly special
+  if (BAKERY.weeklySpecial?.active) {
+    const el = document.getElementById('special');
+    el.style.display = '';
+    el.innerHTML = `${BAKERY.weeklySpecial.emoji} Veckans special: <span>${BAKERY.weeklySpecial.text}</span> — ${BAKERY.weeklySpecial.price} ${BAKERY.weeklySpecial.emoji}`;
+  }
+
+  // About
+  document.getElementById('about-text').textContent = BAKERY.about;
+
+  // Menu
+  const menuGrid = document.getElementById('menu-grid');
+  BAKERY.menu.forEach(item => {
+    menuGrid.innerHTML += `
+      <div class="menu-card">
+        <span class="menu-emoji">${item.emoji}</span>
+        <div class="menu-name">${item.name}</div>
+        <div class="menu-desc">${item.desc || ''}</div>
+        <div class="menu-price">${item.price}</div>
+      </div>`;
+  });
+
+  // Opening hours
+  const hoursList = document.getElementById('hours-list');
+  BAKERY.openingTimes.forEach(row => {
+    hoursList.innerHTML += `
+      <div class="hours-row ${row.open ? 'open' : ''}">
+        <span class="day">${row.day}</span>
+        <span class="time">${row.time}</span>
+      </div>`;
+  });
+
+  // Pop-ups
+  const popupsList = document.getElementById('popups-list');
+  const activePopups = (BAKERY.popups || []).filter(p => p.active !== false);
+  if (activePopups.length === 0) {
+    popupsList.innerHTML = '<p class="no-popups">Inga kommande pop-up evenemang just nu. Kika in snart!</p>';
+  } else {
+    activePopups.forEach(p => {
+      popupsList.innerHTML += `
+        <div class="popup-item">
+          <div class="popup-date">📅 ${p.date}</div>
+          <div class="popup-location">📍 ${p.location}</div>
+          <div class="popup-info">${p.info}</div>
+        </div>`;
+    });
+  }
+
+  // Contact
+  document.getElementById('contact-address').textContent = BAKERY.contact.address;
+  document.getElementById('contact-phone').innerHTML =
+    `<a href="tel:${BAKERY.contact.phone.replace(/\s/g,'')}">${BAKERY.contact.phone}</a>`;
+  document.getElementById('contact-swish').textContent = BAKERY.contact.swish;
+  document.getElementById('footer-contact').textContent =
+    `${BAKERY.contact.address} · ${BAKERY.contact.phone}`;
+
+  // Allergen
+  document.getElementById('allergen-text').textContent = BAKERY.allergenNote;
+
+  // Gallery — 6 placeholder slots
+  const gallery = document.getElementById('gallery-grid');
+  for (let i = 0; i < 6; i++) {
+    gallery.innerHTML += `
+      <div class="gallery-slot">
+        <span class="slot-icon">📷</span>
+        <span>Foto ${i + 1}</span>
+        <small>Lägg till bild här</small>
+      </div>`;
+  }
+</script>
+
+</body>
+</html>
