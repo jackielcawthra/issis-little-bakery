@@ -64,6 +64,6 @@ const BAKERY = {
   allergenNote: "Mina bakverk kan innehålla: gluten, ägg, mjölk, nötter och soja. Fråga mig om du är allergisk mot något! 🌾",
 
   // --- OM ISSI ---
-  about: "Hej! Jag heter Issi och jag är 8 år. Jag älskar att baka och gör allt hemma med kärlek och färska ingredienser. Kom och smaka — jag lovar att du inte blir besviken! 😊",
+  about: "Hej! Jag heter Issi och är 8 år. På fritiden gillar jag gymnastik och innebandy, och jag tycker om hundar och att träffa nya människor. Jag hjälper gärna till med bakningen och hoppas att du tycker om det vi har gjort!",
 
 };
